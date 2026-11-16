@@ -1,7 +1,5 @@
 #include "user_db.h"
-
-#include <cstdlib>
-#include <cstring>
+#include <stdio.h>
 #include <iostream>
 
 UserDb::UserDb() {}
@@ -11,15 +9,17 @@ UserDb::~UserDb() {
 }
 
 void UserDb::addUser(int id, const char* name, int age) {
-    User* u = new User;
+    auto u = std::make_unique<User>();
     u->id = id;
-    strcpy(u->name, name);
+    
+    snprintf(u->name, sizeof(u->name), "%s", name);
+
     u->age = age;
-    users_.push_back(u);
+    users_.push_back(std::move(u));
 }
 
-User* UserDb::findUser(int id) {
-    for (auto* u : users_) {
+std::shared_ptr<User> UserDb::findUser(int id) {
+    for (auto&& u : users_) {
         if (u->id == id) {
             return u;
         }

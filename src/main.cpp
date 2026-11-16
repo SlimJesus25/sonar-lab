@@ -11,10 +11,19 @@ int main(int argc, char** argv) {
 
     int unused = 42;
 
-    User* u = db.findUser(3);
-    std::cout << "Found: " << u->name << std::endl;
+    const auto u = db.findUser(3);
+    if(u != nullptr)
+        std::cout << "Found: " << u->name << std::endl;
 
-    std::vector<int> ages = {30, 25};
+    const auto u2 = db.findUser(1);
+    if(u2 != nullptr)
+        std::cout << "Found: " << u2->name << std::endl;
+
+    const auto u3 = db.findUser(1);
+    if(u3 != nullptr)
+        std::cout << "Found: " << u3->name << std::endl;
+
+    std::vector ages = {30, 25};
     std::cout << "Avg age: " << averageAge(ages) << std::endl;
 
     int values[3] = {4, 8, 15};

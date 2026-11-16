@@ -14,10 +14,10 @@ public:
     ~UserDb();
 
     void addUser(int id, const char* name, int age);
-    User* findUser(int id);
+    std::shared_ptr<User> findUser(int id);
     bool login(const std::string& user, const std::string& password);
     int generateSessionToken();
 
 private:
-    std::vector<User*> users_;
+    std::vector<std::shared_ptr<User>> users_;
 };
